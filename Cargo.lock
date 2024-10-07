@@ -3119,6 +3119,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "ndarray"
+version = "0.16.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "882ed72dce9365842bf196bdeedf5055305f11fc8c03dee7bb0194a6cad34841"
+dependencies = [
+ "matrixmultiply",
+ "num-complex",
+ "num-integer",
+ "num-traits",
+ "portable-atomic",
+ "portable-atomic-util",
+ "rawpointer",
+]
+
+[[package]]
 name = "ndk"
 version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3765,6 +3780,21 @@ name = "pollster"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "22686f4785f02a4fcc856d3b3bb19bf6c8160d103f7a99cc258bddd0251dc7f2"
+
+[[package]]
+name = "portable-atomic"
+version = "1.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cc9c68a3f6da06753e9335d63e27f6b9754dd1920d941135b7ea8224f141adb2"
+
+[[package]]
+name = "portable-atomic-util"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fcdd8420072e66d54a407b3316991fe946ce3ab1083a7f575b2463866624704d"
+dependencies = [
+ "portable-atomic",
+]
 
 [[package]]
 name = "powerfmt"
@@ -4790,7 +4820,7 @@ dependencies = [
  "bytemuck",
  "egui",
  "half",
- "ndarray",
+ "ndarray 0.15.6",
  "re_chunk_store",
  "re_data_ui",
  "re_log_types",
@@ -4951,7 +4981,7 @@ dependencies = [
  "itertools 0.13.0",
  "linked-hash-map",
  "mime_guess2",
- "ndarray",
+ "ndarray 0.15.6",
  "nohash-hasher",
  "once_cell",
  "ply-rs",
@@ -5159,7 +5189,7 @@ dependencies = [
  "indexmap",
  "itertools 0.13.0",
  "linked-hash-map",
- "ndarray",
+ "ndarray 0.15.6",
  "nohash-hasher",
  "once_cell",
  "parking_lot",
@@ -6292,6 +6322,7 @@ version = "0.1.0"
 dependencies = [
  "clap",
  "image",
+ "ndarray 0.16.1",
  "opencv",
  "rerun",
 ]
