@@ -1,8 +1,5 @@
-use std::borrow::Borrow;
-
 use clap::Parser;
-use ndarray::{s, Array, ShapeBuilder};
-use opencv::core::MatTraitConstManual;
+use ndarray::{s, Array};
 use rerun::TensorData;
 use ui_dataviewer::video_reader::video_to_frames;
 
@@ -16,11 +13,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let rec = rerun::RecordingStreamBuilder::new("SKO_inspector").spawn()?;
     println!("Reading file with name {:?}", args.file_name);
-    let array: TensorData = video_to_frames(args.file_name)
-        .as_slice()
-        .unwrap()
-        .try_into()
-        .unwrap();
+    let array = video_to_frames(args.file_name)
+        .slice(s![.., .., 0..3;-1])
+        .to_owned();
     rec.log(
         "image",
         &rerun::Image::from_color_model_and_tensor(rerun::ColorModel::RGB, array)?,
