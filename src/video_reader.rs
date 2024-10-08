@@ -1,27 +1,26 @@
-use ndarray::ArrayView3;
-use opencv::{prelude::*, videoio, Result};
+use ndarray::{Array3, ArrayView3, OwnedRepr};
+use opencv::{prelude::*, videoio, Error, Result};
 
 trait AsArray {
-    fn try_as_array(&self) -> Result<ArrayView3<u8>>;
+    fn try_as_array(&self) -> ArrayView3<u8>;
 }
 impl AsArray for Mat {
-    fn try_as_array(&self) -> Result<ArrayView3<u8>> {
+    fn try_as_array(&self) -> ArrayView3<u8> {
         // if !self.is_continuous() {
         //     return Err(anyhow!("Mat is not continuous"));
         // }
-        let bytes = self.data_bytes()?;
-        let size = self.size()?;
+        let bytes = self.data_bytes().unwrap();
+        let size = self.size().unwrap();
         let a =
             ArrayView3::from_shape((size.height as usize, size.width as usize, 3), bytes).unwrap();
-        Ok(a)
+        a
     }
 }
 
-pub fn video_to_frames(file_name: String) {
+pub fn video_to_frames(file_name: String) -> Array3<u8> {
     let mut file = videoio::VideoCapture::from_file(&file_name, videoio::CAP_ANY).unwrap();
-    let mut frame = Mat::default();
+    let mut frame: Mat = Mat::default();
     file.read(&mut frame).unwrap();
-    println!("Reading frame {:?}", frame);
-    let array = frame.try_as_array().unwrap();
-    println!("Reading array {:?}", array);
+    let result = frame.try_as_array().to_owned();
+    result
 }
